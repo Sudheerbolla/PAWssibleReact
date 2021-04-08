@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NavLink from '../navLink/navLink';
+import { withRouter } from "react-router-dom";
 import { Navbar, Nav, NavDropdown, Form } from 'react-bootstrap';
 import './header.css';
 
@@ -58,8 +59,9 @@ class Header extends Component {
         for (const j in links) {
             links[j].isActive = i == j;
         }
-
         this.setState({ links });
+        this.props.linkClick(links[i])
+        // console.log(links[i]);
     }
 
     logout = () => {
@@ -71,7 +73,7 @@ class Header extends Component {
         const name = (localStorage.getItem('name') !== 'null')? localStorage.getItem('name') : 'My Profile';
         return (
             <div>
-                <Navbar bg="light" expand="lg">
+                <Navbar bg="dark" expand="lg">
                     <Navbar.Brand href="/">
                         <span className="app-title">PAWSsible</span>
                     </Navbar.Brand>
@@ -110,4 +112,4 @@ class Header extends Component {
         );
     }
 }
-export default Header;
+export default withRouter(Header);

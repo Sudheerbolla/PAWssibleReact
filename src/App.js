@@ -5,13 +5,16 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Switch, Route, withRouter, Router, Link  } from "react-router-dom";
 import PrivateRoute from './common/privateRoute/privateRoute';
 import Login from "./components/login/Login";
 import SignUp from "./components/signup/SignUp";
 import Home from './components/home/home';
+import Profile from './components/profile/profile';
+import notfound from './components/notfound/notfound'
 
 class App extends Component {
+
   constructor(props) {
     super(props);
     this.state= {
@@ -33,22 +36,28 @@ class App extends Component {
     this.props.history.push('/');
   }
 
+  linkClick = async(linkData) => { 
+    this.props.history.push(linkData.path);
+    window.location.reload();
+  }
+
   render() {
     return (
       <div className="App">
-      {this.state.userId ? <Header userId={this.state.userId} logout={this.logout}/> : null }
+      {this.state.userId ? <Header userId={this.state.userId} linkClick={this.linkClick.bind(this)} logout={this.logout.bind(this)}/> : null }
       <Switch>
             <PrivateRoute path="/home" exact component={ Home }/>
-            <PrivateRoute path="/login" component={ Login }/>
-            <PrivateRoute path="/signup" component={ SignUp }/>
+            <PrivateRoute path="/profile" component={ Profile }/>
+            <Route path="/signup" component={ SignUp }/>
             <Route path="/" exact component={this.state.userId ? Home: Login }/>
       </Switch>
       {<Footer/>}
       </div>
     );
   }
-
+            // <PrivateRoute path="/login" component={ Login }/>
 }
-//             <PrivateRoute path="/dog/:id" component={ Iron }/>
 
-export default App;
+// <Route component={notfound} />
+
+export default withRouter(App);
