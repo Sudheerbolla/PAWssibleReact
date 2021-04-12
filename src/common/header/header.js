@@ -21,13 +21,16 @@ class Header extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-
         let url = window.location.href.split('/')[3];
-        const navItems = [
+        const navItems = localStorage.getItem('userType')&&localStorage.getItem('userType').toLowerCase()==="o"?[
             { path: "/home", text: "Dogs", isActive: true },
             { path: "/profile", text: "My Profile", isActive: false },
             { path: "/myBookings", text: "My Bookings", isActive: false },
-            { path: "/myBookingRequest", text: "My Booking Requests", isActive: false }
+            { path: "/adddog", text: "Add New Dog", isActive: false }
+        ]:[
+            { path: "/home", text: "Dogs", isActive: true },
+            { path: "/profile", text: "My Profile", isActive: false },
+            { path: "/myBookings", text: "My Bookings", isActive: false }
         ];
         if (url !== "") {
             for (let i = 0; i < navItems.length; i++) {
@@ -82,7 +85,7 @@ class Header extends Component {
                         <Nav className="mr-auto">
                         </Nav>
                         <Form inline>
-                            <NavDropdown title={<div style={{ display: "inline-block" }}><span className="user-name">{name}</span> </div>} id="basic-nav-dropdown" className="">
+                            <NavDropdown title={<div style={{ display: "inline-block", color: '#FFFFFF' }}><span className="user-name">{name}</span> </div>} id="basic-nav-dropdown" className="">
                                 {this.state.links.map((link, i) => {
                                     return (
                                         <NavDropdown.Item key={i} active={link.isActive}>

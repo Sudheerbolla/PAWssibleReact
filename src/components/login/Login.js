@@ -4,6 +4,8 @@ import "./login.css";
 import LoadingOverlay from 'react-loading-overlay';
 import Modal from "react-modal";
 
+// import DateTimePicker from 'react-datetime-picker'
+
 Modal.setAppElement("#root");
 
 class Login extends Component {
@@ -92,7 +94,7 @@ class Login extends Component {
   render() {
     return (
       <div className="login-wrapper">
-        <div className="col-sm-10 col-md-4 login">
+        <div className="col-sm-14 login">
         <LoadingOverlay
           active={this.state.isActive}
           spinner
@@ -133,7 +135,7 @@ class Login extends Component {
         overlayClassName="forgotpasswordoverlay"
         onRequestClose={this.handleClick}
         contentLabel="Forgot Password">
-        <div>Forgot Password.</div>
+        <div>Forgot Password</div>
 
         <input type="text" className="form-control mb-3" placeholder="Email Address" value={this.state.forgEmail} onChange={this.onChangeForgEmail} />
         <input type="password" className="form-control mb-3" placeholder="Password" value={this.state.forgPassword} onChange={this.onChangeForgPassword} />

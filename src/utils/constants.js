@@ -4,8 +4,7 @@ export const ApiEndpoints = {
     DOGS_BY_USER:'/dogs/',
     ADD_DOG:'/dogs/addDog',
     UPDATE_DOG:'/dogs/updateDog',
-    UPDATECHANGE_DOG_STATUS:'/dogs/changeDogStatus',
-    DOGS_BY_USER:'/dogs/',
+    CHANGE_DOG_STATUS:'/dogs/changeDogStatus',
     // users
     LOGIN_API:'/users/login',
     REGISTER_API:'/users/addUser',
@@ -16,7 +15,7 @@ export const ApiEndpoints = {
     GET_OWNER_BOOKING_REQUESTS_API:'/bookings/getOwnerBookingRequests/',
     GET_CUSTOMER_BOOKINGS_API:'/bookings/getCustomerBookings/',
     CREATE_BOOKING_API:'/bookings/createBooking',
-    CHANGE_BOOKING_STATUS_API:'/bookings/changeBookingStatus'
+    CHANGE_BOOKING_STATUS_API:'/bookings/changeBookingStatus/'
 }
 
 export const Variables = {

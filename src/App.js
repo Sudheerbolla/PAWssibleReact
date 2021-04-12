@@ -11,7 +11,10 @@ import Login from "./components/login/Login";
 import SignUp from "./components/signup/SignUp";
 import Home from './components/home/home';
 import Profile from './components/profile/profile';
-import notfound from './components/notfound/notfound'
+import notfound from './components/notfound/notfound';
+import MyBookings from './components/mybookings/mybookings';
+import BookingForm from './components/booking/booking';
+import AddDog from './components/dogs/adddog';
 
 class App extends Component {
 
@@ -49,13 +52,16 @@ class App extends Component {
             <PrivateRoute path="/home" exact component={ Home }/>
             <PrivateRoute path="/profile" component={ Profile }/>
             <Route path="/signup" component={ SignUp }/>
+            <Route path="/login" component={ Login }/>
+            <PrivateRoute path="/mybookings" component={ MyBookings }/>
+            <PrivateRoute path="/booking" component={ BookingForm }/>
+            <PrivateRoute path="/adddog" component={ AddDog }/>
             <Route path="/" exact component={this.state.userId ? Home: Login }/>
       </Switch>
       {<Footer/>}
       </div>
     );
   }
-            // <PrivateRoute path="/login" component={ Login }/>
 }
 
 // <Route component={notfound} />

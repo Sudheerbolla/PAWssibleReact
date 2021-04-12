@@ -76,7 +76,7 @@ class SignUp extends Component {
   render() {
     return (
       <div className="login-wrapper">
-        <div className="col-sm-10 col-md-4 login">
+        <div className="col-sm-14 login">
         <LoadingOverlay
           active={this.state.isActive}
           spinner

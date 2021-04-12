@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { fetchDogsByUser, fetchDogs } from '../../services/services';
-// import { Card } from 'react-bootstrap';
-// import { Link } from 'react-router-dom';
 import $ from 'jquery';
 
 class Home extends Component {
@@ -9,7 +7,8 @@ class Home extends Component {
     constructor(props){
       super(props)
       this.state = {
-          dogs:[]
+          dogs:[],
+          isOwner : localStorage.getItem('userType') && localStorage.getItem('userType').toLowerCase() =="o",
       };
     }
 
@@ -22,18 +21,34 @@ class Home extends Component {
             });
         }
         var result = {}
-        if(localStorage.getItem('userType') && localStorage.getItem('userType').toLowerCase() =="o") {
+        if(this.state.isOwner) {
             result = await fetchDogsByUser(localStorage.getItem('userId'));
         } else {
             result = await fetchDogs();
         }
-        console.log(JSON.stringify(result))
         if(result) {
             this.setState({dogs:result.dogs});
         }    
    }
 
-    render(){
+    proceedBooking = async (e) => {
+        e.preventDefault();
+        const { param } = e.target.dataset;
+        var obj = JSON.parse(param);
+        if(this.state.isOwner) {
+            this.props.history.push({
+                pathname: '/adddog',
+                state: { dog : obj } 
+            })
+        } else {
+            this.props.history.push({
+                pathname: '/booking',
+                state: { dog : obj } 
+            })
+        }
+    }
+
+    render() {
         return (
         <div className="section light-bg" id="features">
             <div className="container">
@@ -47,9 +62,16 @@ class Home extends Component {
                     <div className="card features">
                         <div className="card-body" key={data._id}>
                             <div className="media">
-                                <img width = '100px' height ='100px' className="mt-3" resizemode = 'fitXY' src={ data.photo }/>
+                                <img width = '125px' height ='150px' className="mt-3" resizemode = 'fitXY' src={ data.photo }/>
                                 <div className="media-body" style={{'minHeight': '138px'}}>
-                                    <h3 className="card-title ml-4">{data.breedname}</h3>
+                                    <h5 className="card-title ml-4">{data.breedname}</h5>
+                                    <p className="card-title ml-4">{data.description}</p>
+                                    <p className="card-title ml-4">{"Likes: "+ data.likes}</p>
+                                    <p className="card-title ml-4">{"DisLikes: "+ data.disLikes}</p>
+                                    <p className="card-title ml-4">{"Allergies: "+ data.allergies}</p>
+                                    <p className="card-title ml-4">{"Age In Months: "+ data.ageInMonths}</p>
+                                    <h6 className="card-title ml-4">{"Hourly Price: $"+ data.hourlyPrice}</h6>
+                                    <button type="submit" onClick={this.proceedBooking} data-param={JSON.stringify(data)} className="btn btn-primary btn-block">{this.state.isOwner?"Edit":"Book"}</button>
                                 </div>
                             </div>
                             <div className="text-right">
